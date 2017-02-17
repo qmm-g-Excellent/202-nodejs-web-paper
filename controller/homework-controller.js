@@ -37,7 +37,7 @@ class HomeContorller {
       if (err) {
         return next(err);
       }
-      return res.status(constant.httpCode.OK).send({uri:`homework/${doc._id}`});
+      return res.status(constant.httpCode.OK).send({uri:`homeworks/${doc._id}`});
     })
   }
 
@@ -53,7 +53,7 @@ class HomeContorller {
        if(!doc){
          return res.sendStatus(constant.httpCode.NOT_FOUND);
        }
-       return res.sendStatus(constant.httpCode.NODE_CONTENT);
+       return res.sendStatus(constant.httpCode.NO_CONTENT);
     })
   }
 
@@ -66,7 +66,7 @@ class HomeContorller {
        if(!doc){
          return res.sendStatus(constant.httpCode.NOT_FOUND);
        }
-       return res.sendStatus(constant.httpCode.NODE_CONTENT);
+       return res.sendStatus(constant.httpCode.NO_CONTENT);
     })
   }
 

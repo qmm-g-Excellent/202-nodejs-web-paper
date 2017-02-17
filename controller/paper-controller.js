@@ -51,7 +51,7 @@ class PaperController{
       if(!doc){
         return res.sendStatus(constant.httpCode.NOT_FOUND);
       }
-      return res.sendStatus(constant.httpCode.NODE_CONTENT);
+      return res.sendStatus(constant.httpCode.NO_CONTENT);
     })
   }
 
@@ -64,7 +64,7 @@ class PaperController{
        if(!doc){
          return res.sendStatus(constant.httpCode.NOT_FOUND);
        }
-       return res.sendStatus(constant.httpCode.NODE_CONTENT);
+       return res.sendStatus(constant.httpCode.NO_CONTENT);
     })
   }
 }
