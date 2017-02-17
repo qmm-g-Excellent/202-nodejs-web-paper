@@ -9,7 +9,7 @@ module.exports = [
     paper:'577f0f2586653d19297d40c1'
   },
   {_id: '577f0f2586653d19297d40b2',
-    name: '逻辑题',
+    name: '编程题',
     homeworks: [
       '577f0f2586653d19297d40a1',
       '577f0f2586653d19297d40a2'
