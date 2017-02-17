@@ -6,7 +6,10 @@ class SectionController {
   getAll(req, res, next) {
     async.series({
       sections: (done)=> {
-        Section.find({}, done);
+        Section.find({})
+            .populate('homeworks')
+            .populate('paper')
+            .exec(done);
       },
       totalCount: (done)=> {
         Section.count(done);
@@ -21,15 +24,19 @@ class SectionController {
 
   getOne(req, res, next) {
     const sectionId = req.params.sectionId;
-    Section.findById(sectionId, (err, doc)=> {
-      if (err) {
-        return next(err);
-      }
-      if (!doc) {
-        return res.sendStatus(constant.httpCode.NOT_FOUND);
-      }
-      return res.status(constant.httpCode.OK).send(doc);
-    })
+    Section.findById(sectionId)
+        .populate('homeworks')
+        .populate('paper')
+        .exec(
+            (err, doc)=> {
+              if (err) {
+                return next(err);
+              }
+              if (!doc) {
+                return res.sendStatus(constant.httpCode.NOT_FOUND);
+              }
+              return res.status(constant.httpCode.OK).send(doc);
+            })
   }
 
   create(req, res, next) {
@@ -55,13 +62,13 @@ class SectionController {
     })
   }
 
-  update(req, res,next){
+  update(req, res, next) {
     const sectionId = req.params.sectionId;
-    Section.findByIdAndUpdate(sectionId,req.body, (err, doc)=>{
-      if(err){
-       return next(err);
+    Section.findByIdAndUpdate(sectionId, req.body, (err, doc)=> {
+      if (err) {
+        return next(err);
       }
-      if(!doc){
+      if (!doc) {
         return res.sendStatus(constant.httpCode.NOT_FOUND);
       }
       return res.sendStatus(constant.httpCode.NODE_CONTENT);
