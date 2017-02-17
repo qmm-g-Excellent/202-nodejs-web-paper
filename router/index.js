@@ -1,5 +1,5 @@
-import homeworks from './routers/homeworks';
+const homeworks = require("./routers/homeworks");
 
-export default function(app) {
+module.exports = function(app) {
     app.use('/homeworks', homeworks);
-}
+};
