@@ -34,25 +34,16 @@ describe('SectionCtroller', (done)=> {
             "__v": 0,
             "homeworks": [
               {
-                "_id": "577f0f2586653d19297d40a1",
-                "name": "题目一",
-                "description": "这是一道计算题",
-                "__v": 0
+                "uri": "homeworks/577f0f2586653d19297d40a1"
               },
               {
-                "_id": "577f0f2586653d19297d40a2",
-                "name": "题目二",
-                "description": "这是一道简答题",
-                "__v": 0
+                "uri": "homeworks/577f0f2586653d19297d40a2"
               },
               {
-                "_id": "577f0f2586653d19297d40a3",
-                "name": "题目三",
-                "description": "这是一道逻辑题",
-                "__v": 0
+                "uri": "homeworks/577f0f2586653d19297d40a3"
               }
             ]
-          })
+          });
         })
         .end(done);
   });
@@ -73,17 +64,17 @@ describe('SectionCtroller', (done)=> {
   });
 });
 
-it('DELETE /section/:sectioId should return 204', (done)=>{
-  const sectionId  = '577f0f2586653d19297d40b1';
+it('DELETE /section/:sectioId should return 204', (done)=> {
+  const sectionId = '577f0f2586653d19297d40b1';
   request
       .delete(`/sections/${sectionId}`)
       .expect(constant.httpCode.NO_CONTENT)
       .end(done);
 });
 
-it('PUT /sections/:sectioId should return 204', (done)=>{
+it('PUT /sections/:sectioId should return 204', (done)=> {
   const sectionId = '577f0f2586653d19297d40b1';
-  const name = {name:'简答题'};
+  const name = {name: '简答题'};
   request
       .put(`/sections/${sectionId}`)
       .send(name)
