@@ -2,14 +2,23 @@ const Section = require("../model/section");
 const constant = require("../config/constant");
 const async = require("async");
 
+
 class SectionController {
   getAll(req, res, next) {
     async.series({
       sections: (done)=> {
         Section.find({})
-            .populate('homeworks')
             .populate('paper')
-            .exec(done);
+            .exec((err, doc)=> {
+              const sections = doc.map((item)=> {
+                const section = item.toJSON();
+                section.homeworks = section.homeworks.map((homework)=> {
+                  return {uri: `homeworks/${homework}`}
+                });
+                return section;
+              });
+              done(err, sections);
+            });
       },
       totalCount: (done)=> {
         Section.count(done);
@@ -25,7 +34,6 @@ class SectionController {
   getOne(req, res, next) {
     const sectionId = req.params.sectionId;
     Section.findById(sectionId)
-        .populate('homeworks')
         .populate('paper')
         .exec(
             (err, doc)=> {
@@ -35,7 +43,11 @@ class SectionController {
               if (!doc) {
                 return res.sendStatus(constant.httpCode.NOT_FOUND);
               }
-              return res.status(constant.httpCode.OK).send(doc);
+              const section = doc.toJSON();
+              section.homeworks = section.homeworks.map(item=>{
+                return {uri: `homeworks/${item}`};
+              });
+              return res.status(constant.httpCode.OK).send(section);
             })
   }
 
